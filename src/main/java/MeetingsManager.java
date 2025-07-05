@@ -49,8 +49,11 @@ public class MeetingsManager {
     MeetingsManager meetingsManager = new MeetingsManager();
 
     meetingsManager.addMeeting(1, 4);
-    meetingsManager.addMeeting(1, 4);
-
+    meetingsManager.addMeeting(4, 5);
+    meetingsManager.addMeeting(6, 8);
+    meetingsManager.addMeeting(2, 6);
+    meetingsManager.addMeeting(7, 9);
+    meetingsManager.addMeeting(7, 9);
 
     System.out.println(meetingsManager.hasOverlappingTimes());
     System.out.println(meetingsManager.minMeetingRooms());
