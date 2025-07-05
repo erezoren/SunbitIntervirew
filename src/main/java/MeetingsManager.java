@@ -1,6 +1,4 @@
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class MeetingsManager {
@@ -8,11 +6,15 @@ public class MeetingsManager {
   TreeMap<Integer, Integer> rooms = new TreeMap<>();
   int minRooms = 0;
   boolean isOverlap = false;
-
+  boolean recalculate = false;
 
   public void addMeeting(int start, int end) {
     rooms.put(start + 1, rooms.getOrDefault(start + 1, 0) + 1);
     rooms.put(end + 1, rooms.getOrDefault(end + 1, 0) - 1);
+    recalculate = true;
+  }
+
+  private void calculate() {
     int maxCount = 0;
     int count = 0;
     for (Map.Entry<Integer, Integer> entry : rooms.entrySet()) {
@@ -28,10 +30,18 @@ public class MeetingsManager {
   }
 
   public boolean hasOverlappingTimes() {
+    if (recalculate) {
+      calculate();
+      recalculate = false;
+    }
     return isOverlap;
   }
 
   public int minMeetingRooms() {
+    if (recalculate) {
+      calculate();
+      recalculate = false;
+    }
     return minRooms;
   }
 
@@ -39,6 +49,8 @@ public class MeetingsManager {
     MeetingsManager meetingsManager = new MeetingsManager();
 
     meetingsManager.addMeeting(1, 4);
+    meetingsManager.addMeeting(1, 4);
+
 
     System.out.println(meetingsManager.hasOverlappingTimes());
     System.out.println(meetingsManager.minMeetingRooms());
